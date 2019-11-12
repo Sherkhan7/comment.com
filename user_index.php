@@ -12,7 +12,7 @@
         $commentErr = "Please, fill the Comment area !";
     }
 
-    if (isset($_COOKIE['email'])) {
+    if (isset($_SESSION['email']) && isset($_SESSION['username'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +40,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-user"></i><?= $_COOKIE['username']; ?></a>
+                        <i class="fas fa-user"></i><?= $_SESSION['username']; ?></a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info"
                         aria-labelledby="navbarDropdownMenuLink-4">
                         <a class="dropdown-item" href="#">My account</a>
@@ -124,5 +124,7 @@
     else {
         header("Refresh: 0; url=/index.php");
     }
-    session_unset();
+    unset($_SESSION['comment_success']);
+    unset($_SESSION['comment_error']);
+    unset($_SESSION['comment']);
 ?>

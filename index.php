@@ -10,6 +10,9 @@
         $commentErr = "Please, fill the Comment area !";
     }
     //var_dump($users);
+    if(isset($_SESSION['username']) && isset($_SESSION['email'])){
+        header("Location: /user_index.php");
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,8 +118,9 @@
 
 </html>
 <?php
-    // unset($_SESSION['error']);
-    // unset($_SESSION['username']);
-    // unset($_SESSION['comment']);
-     session_unset();
+    unset($_SESSION['comment_error']);
+    unset($_SESSION['comment_success']);
+    unset($_SESSION['username']);
+    unset($_SESSION['comment']);
+
 ?>

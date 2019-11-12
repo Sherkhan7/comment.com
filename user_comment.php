@@ -32,7 +32,7 @@
         }
     }
     
-    add_comment($_COOKIE["username"], $_POST["comment"]);
+    add_comment($_SESSION["username"], $_POST["comment"]);
 
     header("Location: /user_index.php");
 

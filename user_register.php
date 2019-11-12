@@ -72,8 +72,11 @@
 
             setcookie("username", $username, time() + 3600);
             setcookie("email", $email, time() + 3600);
-            //setcookie("password", $password, time() + 3600);
+            
+            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $email;
             header("Refresh: 3; url=/user_index.php");
+
 
         }
         else {

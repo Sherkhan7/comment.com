@@ -34,18 +34,21 @@
         }
         else{
             if($checkbox === "on"){
-                setcookie("password", $result['password'], time() + 86400 * 3);
-                setcookie("email", $result['email'], time() + 86400 * 3);
+                setcookie("email", $result['email'], time() + 3600);
+                setcookie("username", $result['username'], time() + 3600);
 
-
-
+                $_SESSION['username'] = $result['username'];
+                $_SESSION['email'] = $result['email'];
             }
             else{
-                setcookie("password", $result['password'], time() + 30);
-                setcookie("email", $result['email'], time() + 30);
-            }
-            header("Refresh: 3; url=user_index.php");
+                setcookie("email", $result['email'], time() - 3600);
+                setcookie("username", $result['username'], time() - 3600);
 
+                $_SESSION['username'] = $result['username'];
+                $_SESSION['email'] = $result['email'];
+            }
+
+            header("Refresh: 3; url=user_index.php");
         }
     }
 

@@ -127,5 +127,8 @@ if ($_SESSION['password'] === "") {
 
 </html>
 <?php
-    session_unset();
+    unset($_SESSION['email_error']);
+    unset($_SESSION['password_error']);
+    unset($_SESSION['email']);
+    unset($_SESSION['password']);
 ?>
