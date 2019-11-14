@@ -4,14 +4,15 @@
     include "users.php";
 
     // var_dump($_SESSION);
-    if(isset($_SESSION['USERNAME']) && isset($_SESSION['EMAIL'])){
+    if(isset($_SESSION['USERNAME']) && isset($_SESSION['EMAIL']) && isset($_SESSION['USER_ID'])){
         header("Location: /user_index.php");
     }
     else {
         
-        if(isset($_COOKIE['USERNAME']) && isset($_COOKIE['EMAIL'])){
+        if(isset($_COOKIE['USERNAME']) && isset($_COOKIE['EMAIL']) && isset($_COOKIE['USER_ID'])){
             $_SESSION['USERNAME'] = $_COOKIE['USERNAME'];
             $_SESSION['EMAIL'] = $_COOKIE['EMAIL'];
+            $_SESSION['USER_ID'] = $_COOKIE['USER_ID'];
             header("Location: /user_index.php");
         }
         else {
@@ -98,7 +99,6 @@
                         <small class="text-muted"><?php
                          $d=strtotime($user['date']);
                          echo date("d/m/Y h:i:sa", $d);
-                        //echo $user['date'];
                          ?></small>
                     </div>
                 </div>

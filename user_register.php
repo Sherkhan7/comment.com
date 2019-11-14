@@ -1,32 +1,27 @@
 <?php
     session_start();
-
-    function connection(){
-        $pdo = new PDO("mysql:host=localhost; dbname=comment", "root", "");
-            if(!$pdo){
-                die("Connection failed!");
-            }
-        return $pdo;
-    }
-
+    
     function add_user($username, $email, $password, $confirmed_password){
+    
+        $pdo = new PDO("mysql:host=localhost; dbname=comment", "root", "");
+        
+        if(!$pdo){
+            die("Connection failed!");
+        }
+        
         //email to lower case
         $email = strtolower($email);
         
         //email validated
         $email_validate = filter_var($email, FILTER_VALIDATE_EMAIL);
-
-        // echo "<pre>";
-        // var_dump($email_validate);
-        // echo "</pre>";
+    
         if($email_validate === false){
             $_SESSION['email_type_validate'] = $email_validate;
         }
         else {
-
             $sql = "SELECT email FROM users WHERE email=:email";
 
-            $statement = connection() -> prepare($sql);
+            $statement = $pdo -> prepare($sql);
             $statement -> bindParam(':email', $email);        
             $statement -> execute();
 
@@ -63,20 +58,23 @@
 
             $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
 
-            $statement = connection() -> prepare($sql);
+            $statement = $pdo -> prepare($sql);
             $statement -> bindParam(':name', $username);
             $statement -> bindParam(':email', $email);
             $statement -> bindParam(':password', $password);
             
             $statement -> execute();
-
+            $last_user_id = $pdo -> lastInsertId();
+            
             setcookie("USERNAME", $username, time() + 3600);
             setcookie("EMAIL", $email, time() + 3600);
+            setcookie("USER_ID", $last_user_id, time() + 3600);
             
             $_SESSION['USERNAME'] = $username;
             $_SESSION['EMAIL'] = $email;
+            $_SESSION['USER_ID'] = $last_user_id;
 
-            header("Refresh: 3; url=/user_index.php");
+            header("Refresh: 2; url=/user_index.php");
 
         }
         else {

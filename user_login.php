@@ -10,7 +10,8 @@
         die("Connection field");
     }
 
-    $sql = "SELECT password, email, name FROM users WHERE email=:email";
+    $sql = "SELECT id, name, email, password FROM users WHERE email=:email";
+
     $statement = $pdo -> prepare($sql);
     $statement -> bindParam(":email", $email);
     $statement -> execute();
@@ -24,7 +25,8 @@
         $_SESSION['email_error'] = true;
         $_SESSION['email'] = $email;
         $_SESSION['password'] = $password;
-        header("Location: /login.php");
+
+       header("Location: /login.php");
     }
     else{
         if(!password_verify($password, $result['password'])){
@@ -37,22 +39,25 @@
             if($checkbox === "on"){
                 setcookie("EMAIL", $result['email'], time() + 3600);
                 setcookie("USERNAME", $result['name'], time() + 3600);
+                setcookie("USER_ID", $result['id'], time() + 3600);
 
                 $_SESSION['USERNAME'] = $result['name'];
                 $_SESSION['EMAIL'] = $result['email'];
+                $_SESSION['USER_ID'] = $result['id'];
             }
             else{
                 setcookie("EMAIL", $result['email'], time() - 3600);
                 setcookie("USERNAME", $result['name'], time() - 3600);
+                setcookie("USER_ID", $result['id'], time() - 3600);
 
                 $_SESSION['USERNAME'] = $result['name'];
                 $_SESSION['EMAIL'] = $result['email'];
+                $_SESSION['USER_ID'] = $result['id'];
             }
 
             header("Refresh: 2; url=user_index.php");
         }
     }
-
 
 ?>
 Loading...

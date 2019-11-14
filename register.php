@@ -1,9 +1,9 @@
 <?php
     session_start();
 
-    echo "<pre>";
-    var_dump($_SESSION);
-    echo "</pre>";
+    // echo "<pre>";
+    // var_dump($_SESSION);
+    // echo "</pre>";
 
     if(($_SESSION['username']) === ""){
         $usernameErr = "Please, fill the Name area !";

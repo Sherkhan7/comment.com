@@ -12,7 +12,8 @@
         $commentErr = "Please, fill the Comment area !";
     }
 
-    if (isset($_COOKIE['EMAIL']) && isset($_COOKIE['USERNAME']) || isset($_SESSION['EMAIL']) && isset($_SESSION['USERNAME'])) {
+    if (isset($_COOKIE['EMAIL']) && isset($_COOKIE['USERNAME']) && isset($_COOKIE['USER_ID']) || 
+        isset($_SESSION['EMAIL']) && isset($_SESSION['USERNAME']) && isset($_SESSION['USER_ID'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
