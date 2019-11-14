@@ -70,13 +70,13 @@
             
             $statement -> execute();
 
-            setcookie("username", $username, time() + 3600);
-            setcookie("email", $email, time() + 3600);
+            setcookie("USERNAME", $username, time() + 3600);
+            setcookie("EMAIL", $email, time() + 3600);
             
-            $_SESSION['username'] = $username;
-            $_SESSION['email'] = $email;
-            header("Refresh: 3; url=/user_index.php");
+            $_SESSION['USERNAME'] = $username;
+            $_SESSION['EMAIL'] = $email;
 
+            header("Refresh: 3; url=/user_index.php");
 
         }
         else {

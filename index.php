@@ -2,16 +2,25 @@
 
     session_start();
     include "users.php";
-    //var_dump($_SESSION);
-    if(($_SESSION['username']) === ""){
-        $usernameErr = "Please, fill the Name area !";
-    }
-    if(($_SESSION['comment']) === ""){
-        $commentErr = "Please, fill the Comment area !";
-    }
-    //var_dump($users);
-    if(isset($_SESSION['username']) && isset($_SESSION['email'])){
+
+    // var_dump($_SESSION);
+    if(isset($_SESSION['USERNAME']) && isset($_SESSION['EMAIL'])){
         header("Location: /user_index.php");
+    }
+    else {
+        
+        if(isset($_COOKIE['USERNAME']) && isset($_COOKIE['EMAIL'])){
+            $_SESSION['USERNAME'] = $_COOKIE['USERNAME'];
+            $_SESSION['EMAIL'] = $_COOKIE['EMAIL'];
+            header("Location: /user_index.php");
+        }
+        else {
+            $error_msg = '
+            <div class="alert alert-dark mt-2">
+                To comment this site please <a href="/register.php" class="alert-link">register</a>
+                or <a href="/login.php" class="alert-link">login</a>
+            </div>';
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -51,30 +60,23 @@
     </nav>
     <!--/.Navbar -->
     <div class="container">
-        <?php if(isset($_SESSION['comment_error'])){
-            echo $_SESSION['comment_error'];
-        }?>
-        <?php if(isset($_SESSION['comment_success'])){
-            echo $_SESSION['comment_success'];
-        }?>
+        <?php
+            echo $error_msg;
+        ?>
 
         <div class="card mb-3 mt-3">
             <div class="card-header bg-dark text-white">
                 Leave Comment
             </div>
             <div class="card-body">
-                <form action="comment_insert.php" method="POST">
+                <form>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input id="name" type="text" name="username" placeholder="Name" class="form-control"
-                            area-describedby="nameHelp" value="<?= $_SESSION['username'];?>">
-                        <small id="nameHelp" class="form-text text-danger"><?= $usernameErr;?></small>
+                        <input id="name" type="text" name="username" placeholder="Name" class="form-control">
                         <div class="form-group mt-3">
                             <label for="comment">Comment</label>
-                            <textarea id="comment" class="form-control" name="comment" rows="3"
-                                area-describedby="commentHelp" placeholder="Write something..."><?= $_SESSION['comment'];?></textarea>
-                            <small id="commentHelp" class="form-text text-danger"><?= $commentErr;?></small>
-                            <button type="submit" class="btn btn-elegant mt-3 btn-sm">Submit</button>
+                            <textarea id="comment" class="form-control" name="comment" rows="3" placeholder="Write something..."></textarea>
+                            <a href="/register.php" type="submit" class="btn btn-elegant mt-3 btn-sm" role="button">Submit</a>
                         </div>
                     </div>
                 </form>
@@ -117,10 +119,3 @@
 </body>
 
 </html>
-<?php
-    unset($_SESSION['comment_error']);
-    unset($_SESSION['comment_success']);
-    unset($_SESSION['username']);
-    unset($_SESSION['comment']);
-
-?>

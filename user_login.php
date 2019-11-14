@@ -1,9 +1,6 @@
 <?php
     session_start();
-    // echo "<pre>";
-    // var_dump($_POST);
-    // echo "</pre>";
-
+    
     $email = $_POST['email'];
     $password = $_POST['password'];
     $checkbox = $_POST['checkbox'];
@@ -25,35 +22,37 @@
 
     if($result['password'] === null){
         $_SESSION['email_error'] = true;
+        $_SESSION['email'] = $email;
+        $_SESSION['password'] = $password;
         header("Location: /login.php");
     }
     else{
         if(!password_verify($password, $result['password'])){
             $_SESSION['password_error'] = true;
+            $_SESSION['email'] = $email;
+            $_SESSION['password'] = $password;
             header("Location: /login.php");
         }
         else{
             if($checkbox === "on"){
-                setcookie("email", $result['email'], time() + 3600);
-                setcookie("username", $result['username'], time() + 3600);
+                setcookie("EMAIL", $result['email'], time() + 3600);
+                setcookie("USERNAME", $result['name'], time() + 3600);
 
-                $_SESSION['username'] = $result['username'];
-                $_SESSION['email'] = $result['email'];
+                $_SESSION['USERNAME'] = $result['name'];
+                $_SESSION['EMAIL'] = $result['email'];
             }
             else{
-                setcookie("email", $result['email'], time() - 3600);
-                setcookie("username", $result['username'], time() - 3600);
+                setcookie("EMAIL", $result['email'], time() - 3600);
+                setcookie("USERNAME", $result['name'], time() - 3600);
 
-                $_SESSION['username'] = $result['username'];
-                $_SESSION['email'] = $result['email'];
+                $_SESSION['USERNAME'] = $result['name'];
+                $_SESSION['EMAIL'] = $result['email'];
             }
 
-            header("Refresh: 3; url=user_index.php");
+            header("Refresh: 2; url=user_index.php");
         }
     }
 
-    $_SESSION['email'] = $email;
-    $_SESSION['password'] = $password;
 
 ?>
 Loading...

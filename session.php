@@ -2,6 +2,8 @@
     session_start();
 
     $_SESSION['name'] = 'Sherzod';
-    $_SESSION['time'] = date("h:i:s");
+    $_SESSION['date'] = date("H:i:s");
+
+    var_dump($_SESSION);
     
 ?>

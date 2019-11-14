@@ -32,7 +32,7 @@
             $_SESSION['comment'] = $comment;
         }
     }
-    
+
     add_comment($_POST["username"], $_POST["comment"]);
 
     header("Location: /index.php");

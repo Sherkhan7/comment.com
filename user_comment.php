@@ -1,19 +1,21 @@
 <?php
 
     session_start();
+
+    function connection(){
+        $pdo = new PDO("mysql:host=localhost; dbname=comment", "root", "");
+            if(!$pdo){
+                die("Connection failed!");
+            }
+        return $pdo;
+    }
         
     function add_comment($username, $comment){
-
-        $pdo = new PDO("mysql:host=localhost;dbname=comment", "root", "");
-        
-        if(!$pdo){
-            die("Connection failed!");
-        }
 
         if($username && $comment){
             $sql = "INSERT INTO comments (name, message) VALUES (:name, :message)";
         
-            $statement = $pdo -> prepare($sql);
+            $statement = connection() -> prepare($sql);
             $statement -> bindParam(":name", $username);
             $statement -> bindParam(":message", $comment);
             $result = $statement -> execute();
@@ -32,7 +34,7 @@
         }
     }
     
-    add_comment($_SESSION["username"], $_POST["comment"]);
+    add_comment($_SESSION["USERNAME"], $_POST["comment"]);
 
     header("Location: /user_index.php");
 

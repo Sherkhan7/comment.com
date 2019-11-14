@@ -1,8 +1,8 @@
 <?php
 session_start();
-// echo "<pre>";
-// var_dump($_SESSION);
-// echo "</pre>";
+echo "<pre>";
+var_dump($_SESSION);
+echo "</pre>";
 
 if($_SESSION['email_error'] === true){
     $emailErr = "Eamil not found !";

@@ -1,5 +1,6 @@
 <?php
     session_start();
+
     echo "<pre>";
     var_dump($_SESSION);
     echo "</pre>";
@@ -120,10 +121,15 @@
 </html>
 <?php
 
-    // unset($_SESSION['username']);
-    // unset($_SESSION['email']);
-    // unset($_SESSION['password']);
-    // unset($_SESSION['confirmed_password']);
-    session_unset();
+    unset($_SESSION['username']);
+    unset($_SESSION['email']);
+    unset($_SESSION['email_type_validate']);
+    unset($_SESSION['email_existence_validate']);
 
+    unset($_SESSION['password']);
+    unset($_SESSION['password_validate']);
+    unset($_SESSION['password_character_validate']);
+    unset($_SESSION['confirmed_password']);
+
+    //session_unset();
 ?>
