@@ -27,10 +27,16 @@
     if(!$pdo){
         die("Sorry");
     }
+    // $sql = "SELECT * FROM comments ORDER BY Date DESC";
+    $sql = "SELECT comments.user_id, comments.name, comments.message, comments.date, users.password FROM comments INNER JOIN users ON comments.user_id = users.id";
 
-    $sql = "SELECT * FROM comments ORDER BY Date DESC";
+
     $statement = $pdo -> prepare($sql);
     $statement -> execute();
     $users = $statement -> fetchAll( PDO::FETCH_ASSOC);
+
+    echo "<pre>";
+    var_dump($users);
+    echo "</pre>";
 
 ?>
