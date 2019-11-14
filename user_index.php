@@ -1,5 +1,6 @@
 <?php
     session_start();
+
     // echo "<pre>";
     // var_dump($_COOKIE);
     // echo "</pre>";
@@ -95,7 +96,7 @@
                         <p class="form-text mb-2"><?= $user['message'];?></p>
                         <small class="text-muted"><?php
                          $d=strtotime($user['date']);
-                         echo date("d/m/Y h:i:sa", $d);
+                         echo date("d/m/Y H:i:s", $d);
                         //echo $user['date'];
                          ?></small>
                     </div>
