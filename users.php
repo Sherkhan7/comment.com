@@ -29,7 +29,7 @@
         die("Sorry");
     }
     // $sql = "SELECT * FROM comments ORDER BY Date DESC";
-    $sql = "SELECT comments.name, comments.message, comments.date  FROM comments INNER JOIN users ON comments.user_id = users.id ORDER BY date DESC";
+    $sql = "SELECT users.name, comments.message, comments.date, users.image FROM comments INNER JOIN users ON comments.user_id = users.id ORDER BY date DESC";
 
     $statement = $pdo -> prepare($sql);
     $statement -> execute();

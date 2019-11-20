@@ -13,11 +13,6 @@
     
     // var_dump(session_save_path());
     
-    function connection(){
-        $pdo = new PDO("mysql:host=localhost; dbname=comment", "root", "");
-        return $pdo;
-    }
-
         // if(!connection()){
         //     die("Connection failed!");
         // }

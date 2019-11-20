@@ -91,8 +91,7 @@
             <div class="card-body">
                 <?php foreach ($users as $user):?>
                 <div class="media mb-3">
-                    <img class="align-self-start mr-3" src="images/userIcon.jpg" alt=""
-                        style="width:64px; height:64px; border-radius:50px;">
+                    <img class="align-self-start mr-3" src="images/<?= $user['image'];?>" alt="" style="width:64px; height:64px; border-radius:50px;">
                     <div class="media-body">
                         <h5 class="mb-0"><?= $user['name'];?></h5>
                         <p class="form-text mb-2"><?= $user['message'];?></p>

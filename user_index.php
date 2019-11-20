@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/mdb.min.css">
+    
 </head>
 
 <body>
@@ -45,7 +46,7 @@
                         <i class="fas fa-user"></i><?= $_SESSION['USERNAME']; ?></a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-info"
                         aria-labelledby="navbarDropdownMenuLink-4">
-                        <a class="dropdown-item" href="#">My account</a>
+                        <a class="dropdown-item" href="/user_account.php">My account</a>
                         <a class="dropdown-item" href="/user_logout.php">Log out</a>
                     </div>
                 </li>
@@ -62,6 +63,7 @@
         <?php if(isset($_SESSION['comment_success'])){
             echo $_SESSION['comment_success'];
         }?>
+        
         <div class="card mb-3 mt-3">
             <div class="card-header bg-dark text-light">
                 Leave Comment
@@ -89,8 +91,8 @@
             <div class="card-body">
                 <?php foreach ($users as $user):?>
                 <div class="media mb-3">
-                    <img class="align-self-start mr-3" src="images/userIcon.jpg" alt=""
-                        style="width:64px; height:64px; border-radius:50px;">
+                    <img class="align-self-start mr-3" src="images/<?= $user['image'];?>" alt=""
+                        style="width:64px; height:64px; border-radius:100%;">
                     <div class="media-body">
                         <h5 class="mb-0"><?= $user['name'];?></h5>
                         <p class="form-text mb-2"><?= $user['message'];?></p>
