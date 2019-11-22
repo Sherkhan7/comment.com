@@ -1,6 +1,16 @@
 <?php
     session_start();
     include "user.php";
+    // echo "<pre>";
+    // var_dump($_SESSION);
+    // echo "</pre>";
+    // var_dump($_SESSION['username']);
+    var_dump($_SESSION['current_password']);
+    
+    if(!isset($_SESSION['username']) && !isset($_SESSION['email'])){
+        $_SESSION['username'] = $_SESSION['USERNAME'];
+        $_SESSION['email'] =  $_SESSION['EMAIL'];
+    }
 
     if(($_SESSION['username']) === ""){
         $usernameErr = "Please, fill the Name area !";
@@ -15,6 +25,30 @@
         if($_SESSION['email_existence_validate'] === true) {
             $emailErr = "This eamil has already been taken !";
         }
+    }
+
+
+    if(($_SESSION['current_password']) === ""){
+        $current_password_Err = "Please, enter the current password !";
+    }
+    else {
+        if($_SESSION['current_password_error'] === true){
+            $current_password_Err = "Wrong password entered !";
+        }
+    }
+    if($_SESSION['new_password'] === ""){
+        $new_password_Err = "Please, enter the new password !";
+    }
+    else {
+        if($_SESSION['password_character_validate'] === false){
+            $new_password_Err = "Password must contain at least 6 characters !";
+        }
+        if($_SESSION['password_validate'] === false){
+            $confirmed_password_Err = "The password confirmation does not match !";
+        }
+    }
+    if(($_SESSION['confirmed_new_password']) === ""){
+        $confirmed_password_Err = "Please, Confirm the new password !";
     }
 ?>
 <!DOCTYPE html>
@@ -39,7 +73,14 @@
 <body>
 
     <div class="container">
-
+        <a href="/user_index.php">Go to user_index</a>
+        <?php if($_SESSION['account_success'] === true){
+            echo '<div class="alert alert-dark" role="alert">
+                    Username, email or avatar have changed successfully.
+                 </div>';
+        }
+        ?>
+    
         <div class="card mb-3 mt-3">
 
             <div class="card-header bg-dark text-light">
@@ -80,6 +121,13 @@
 
         </div>
 
+        <?php if($_SESSION['password_success'] === true){
+            echo '<div class="alert alert-dark" role="alert">
+                    Your password has changed successfully.
+                 </div>';
+        }
+        ?>
+
         <div class="card mb-3 mt-3">
 
             <div class="card-header bg-dark text-light">
@@ -87,25 +135,25 @@
             </div>
 
             <div class="card-body">
-                <form action="/user_account_edit.php" method="POST" enctype="multipart/form-data">
+                <form action="/user_password_edit.php" method="POST">
 
                     <div class="form-group mt-3">
                         <label for="current_psw">Current Password</label>
-                        <input class="form-control form-control-sm" type="password" name="currernt_password"
-                            id="current_psw">
+                        <input class="form-control form-control-sm" type="password" name="current_password"
+                            id="current_psw" value="<?= $_SESSION['current_password'];?>">
                         <small class="form-text text-danger"><?= $current_password_Err;?></small>
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="new_psw">New password</label>
-                        <input class="form-control form-control-sm" type="password" name="new_password" id="new_psw">
+                        <input class="form-control form-control-sm" type="password" name="new_password" id="new_psw" value="<?= $_SESSION['new_password'];?>">
                         <small class="form-text text-danger"><?= $new_password_Err;?></small>
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="confirmed_new_psw">Confirm the new password</label>
                         <input type="password" class="form-control form-control-sm" name="confirmed_new_password"
-                            id="confirmed_new_psw">
+                            id="confirmed_new_psw" value="<?= $_SESSION['confirmed_new_password'];?>">
                         <small class="form-text text-danger"><?= $confirmed_password_Err;?></small>
                     </div>
 
@@ -114,7 +162,7 @@
             </div>
 
         </div>
-        
+
     </div>
 
     <!-- SCRIPTS -->
@@ -136,5 +184,14 @@
     unset($_SESSION['email']);
     unset($_SESSION['email_type_validate']);
     unset($_SESSION['email_existence_validate']);
+    unset($_SESSION['account_success']);
+
+    unset($_SESSION['current_password']);
+    unset($_SESSION['current_password_error']);
+    unset($_SESSION['new_password']);
+    unset($_SESSION['password_character_validate']);
+    unset($_SESSION['password_validate']);
+    unset($_SESSION['confirmed_new_password']);
+    unset($_SESSION['password_success']);
 
 ?>

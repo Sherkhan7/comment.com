@@ -26,7 +26,7 @@
     $pdo = new PDO("mysql:host=localhost; dbname=comment", "root", "");
 
     if(!$pdo){
-        die("Sorry");
+        die("Error !");
     }
     // $sql = "SELECT * FROM comments ORDER BY Date DESC";
     $sql = "SELECT users.name, comments.message, comments.date, users.image FROM comments INNER JOIN users ON comments.user_id = users.id ORDER BY date DESC";

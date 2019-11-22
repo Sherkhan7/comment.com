@@ -3,7 +3,7 @@
 
     $pdo = new PDO("mysql:host=localhost; dbname=comment", "root", "");
     if(!$pdo){
-        die("Sorry");
+        die("Error !");
     }
 
     $sql = "SELECT * FROM users WHERE email = :email";
