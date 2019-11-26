@@ -52,14 +52,15 @@
 
 <body>
     <div class="container">
+        <p>Salom</p>
         <!-- Card -->
-        <div class="card w-60 mx-auto my-3">
+        <div class="card mx-auto my-3" style="max-width:500px;">
 
             <h5 class="card-header elegant-color white-text text-center py-4">
                 <strong>Sign up</strong>
             </h5>
             <!-- Card body -->
-            <div class="card-body px-5 pt-0">
+            <div class="card-body px-4 pt-0">
 
                 <!-- Material form register -->
                 <form action="/user_register.php" method = "post">

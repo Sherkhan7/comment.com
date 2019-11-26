@@ -4,24 +4,19 @@
     include "users.php";
 
     // var_dump($_SESSION);
-    if(isset($_SESSION['USERNAME']) && isset($_SESSION['EMAIL']) && isset($_SESSION['USER_ID'])){
+        
+    if(isset($_COOKIE['USERNAME']) && isset($_COOKIE['EMAIL']) && isset($_COOKIE['USER_ID'])){
+        $_SESSION['USERNAME'] = $_COOKIE['USERNAME'];
+        $_SESSION['EMAIL'] = $_COOKIE['EMAIL'];
+        $_SESSION['USER_ID'] = $_COOKIE['USER_ID'];
         header("Location: /user_index.php");
     }
     else {
-        
-        if(isset($_COOKIE['USERNAME']) && isset($_COOKIE['EMAIL']) && isset($_COOKIE['USER_ID'])){
-            $_SESSION['USERNAME'] = $_COOKIE['USERNAME'];
-            $_SESSION['EMAIL'] = $_COOKIE['EMAIL'];
-            $_SESSION['USER_ID'] = $_COOKIE['USER_ID'];
-            header("Location: /user_index.php");
-        }
-        else {
-            $error_msg = '
-            <div class="alert alert-dark mt-2">
-                To comment this site please <a href="/register.php" class="alert-link">register</a>
-                or <a href="/login.php" class="alert-link">login</a>
-            </div>';
-        }
+        $error_msg = '
+        <div class="alert alert-dark mt-2">
+            To comment this site please <a href="/register.php" class="alert-link">register</a>
+            or <a href="/login.php" class="alert-link">login</a>
+        </div>';
     }
 ?>
 <!DOCTYPE html>
