@@ -12,11 +12,16 @@
         header("Location: /user_index.php");
     }
     else {
-        $error_msg = '
-        <div class="alert alert-dark mt-2">
-            To comment this site please <a href="/register.php" class="alert-link">register</a>
-            or <a href="/login.php" class="alert-link">login</a>
-        </div>';
+        if(isset($_SESSION['USERNAME']) && isset($_SESSION['EMAIL']) && isset($_SESSION['USER_ID'])){
+            header("Location: /user_index.php");
+        }
+        else{
+            $error_msg = '
+            <div class="alert alert-dark mt-2">
+                To comment this site please <a href="/register.php" class="alert-link">register</a>
+                or <a href="/login.php" class="alert-link">login</a>
+            </div>';
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -29,8 +34,8 @@
     <title>Comments!!!</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link href="css/mdb.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/mdb.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -72,7 +77,7 @@
                         <div class="form-group mt-3">
                             <label for="comment">Comment</label>
                             <textarea id="comment" class="form-control" name="comment" rows="3" placeholder="Write something..."></textarea>
-                            <a href="/register.php" type="submit" class="btn btn-elegant mt-3 btn-sm" role="button">Submit</a>
+                            <a href="/register.php" type="submit" class="btn btn-elegant mt-3 btn-sm" role="button" style="border:1px solid transparent;">Submit</a>
                         </div>
                     </div>
                 </form>
@@ -86,7 +91,7 @@
             <div class="card-body">
                 <?php foreach ($users as $user):?>
                 <div class="media mb-3">
-                    <img class="align-self-start mr-3" src="images/<?= $user['image'];?>" alt="" style="width:64px; height:64px; border-radius:50px;">
+                    <img class="align-self-start mr-3" src="images/<?= $user['image'];?>" alt="" style="width:64px; height:64px; border-radius:50px; object-fit: cover;">
                     <div class="media-body">
                         <h5 class="mb-0"><?= $user['name'];?></h5>
                         <p class="form-text mb-2"><?= $user['message'];?></p>

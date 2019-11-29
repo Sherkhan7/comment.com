@@ -13,7 +13,7 @@
         $commentErr = "Please, fill the Comment area !";
     }
 
-    if (isset($_COOKIE['EMAIL']) && isset($_COOKIE['USERNAME']) && isset($_COOKIE['USER_ID']) && 
+    if (isset($_COOKIE['EMAIL']) && isset($_COOKIE['USERNAME']) && isset($_COOKIE['USER_ID']) || 
         isset($_SESSION['EMAIL']) && isset($_SESSION['USERNAME']) && isset($_SESSION['USER_ID'])) {
 ?>
 <!DOCTYPE html>
@@ -23,10 +23,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>User Index</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/mdb.min.css">
+    <link rel="stylesheet" href="css/style.css">
     
 </head>
 
@@ -77,7 +78,7 @@
                                 area-describedby="commentHelp"
                                 placeholder="Write something..."><?= $_SESSION['comment'];?></textarea>
                             <small id="commentHelp" class="form-text text-danger"><?= $commentErr;?></small>
-                            <button type="submit" class="btn btn-elegant mt-3">Submit</button>
+                            <button type="submit" class="btn btn-elegant btn-sm mt-3">Submit</button>
                         </div>
                     </div>
                 </form>
@@ -92,7 +93,7 @@
                 <?php foreach ($users as $user):?>
                 <div class="media mb-3">
                     <img class="align-self-start mr-3" src="images/<?= $user['image'];?>" alt=""
-                        style="width:64px; height:64px; border-radius:100%;">
+                        style="width:64px; height:64px; border-radius:100%; object-fit: cover;">
                     <div class="media-body">
                         <h5 class="mb-0"><?= $user['name'];?></h5>
                         <p class="form-text mb-2"><?= $user['message'];?></p>

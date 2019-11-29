@@ -1,9 +1,9 @@
 <?php
 
-    $hide = $_GET['hide'];
-    $show = $_GET['show'];
-    $delete = $_GET['delete'];
-    $comment_id = $_GET['comment_id'];
+    $hide = $_POST['hide'];
+    $show = $_POST['show'];
+    $delete = $_POST['delete'];
+    $comment_id = $_POST['comment_id'];
     
     if(isset($hide)){
         $pdo = new PDO("mysql:host=localhost; dbname=comment", "root", "");
@@ -28,7 +28,7 @@
     }
 
     $pdo = new PDO("mysql:host=localhost; dbname=comment", "root", "");
-    $sql = "SELECT comments.comment_id, comments.user_id, users.name, users.image, comments.message, comments.date, comments.active  FROM comments INNER JOIN users ON comments.user_id = users.id ORDER BY date DESC";
+    $sql = "SELECT comments.comment_id, users.name, users.image, comments.message, comments.date, comments.active  FROM comments INNER JOIN users ON comments.user_id = users.id ORDER BY date DESC";
     $statement = $pdo -> prepare($sql);
     $statement -> execute();
     $comments = $statement -> fetchAll(PDO::FETCH_ASSOC);
@@ -43,9 +43,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Admin Panel</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/mdb.min.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
@@ -54,10 +55,10 @@
     <div class="container">
         <div class="card mb-3 mt-3">
             <div class="card-header bg-dark text-light">Admin Panel</div>
-            <div class="card-body px-0" style="overflow-x: auto;">
-                <h5 class="card-title">All comments</h5>
-                <table class="table table-dark table-hover">
-                    <thead">
+            <div class="card-body px-0" style="overflow-x: auto; width:100%;">
+                <h5 class="card-title mx-2">All comments</h5>
+                <table class="table table-hover table-striped table-sm">
+                    <thead ">
                         <tr>
                             <th>#</th>
                             <th>Avatar</th>
@@ -66,7 +67,7 @@
                             <th>Date</th>
                             <th>Action</th>
                         </tr>
-                    </thead">
+                    </thead>
                     <tbody>
                         <?php foreach ($comments as $comment):?>
                         <tr>
@@ -75,7 +76,7 @@
                             </td>
                             <td>
                                 <img class="align-self-start mr-3" src="images/<?= $comment['image'];?>" alt=""
-                                    style="width:64px; height:64px; border-radius:50px;">
+                                    style="width:64px; height:64px; border-radius:50px; object-fit:cover;">
                             </td>
                             <td>
                                 <?= $comment['name'];?>
@@ -90,7 +91,7 @@
                                 ?>
                             </td>
                             <td>
-                                <form action="/admin.php" method="GET">
+                                <form action="/admin.php" method="POST">
                                     <input type="hidden" name="comment_id" value="<?= $comment['comment_id'];?>">
                                     <?php
                                         if($comment['active'] != 1){

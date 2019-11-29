@@ -5,7 +5,6 @@
     // var_dump($_SESSION);
     // echo "</pre>";
     // var_dump($_SESSION['username']);
-    var_dump($_SESSION['current_password']);
     
     if(!isset($_SESSION['username']) && !isset($_SESSION['email'])){
         $_SESSION['username'] = $_SESSION['USERNAME'];
@@ -50,6 +49,8 @@
     if(($_SESSION['confirmed_new_password']) === ""){
         $confirmed_password_Err = "Please, Confirm the new password !";
     }
+
+    if(isset($_SESSION['USERNAME']) && isset($_SESSION['EMAIL']) && isset($_SESSION['USER_ID'])){
 ?>
 <!DOCTYPE html>
 
@@ -59,11 +60,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>User Account</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/mdb.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
 
     </style>
@@ -73,7 +74,7 @@
 <body>
 
     <div class="container">
-        <a href="/user_index.php">Go to user_index</a>
+        <a href="/user_index.php">Go to user index</a>
         <?php if($_SESSION['account_success'] === true){
             echo '<div class="alert alert-dark" role="alert">
                     Username, email or avatar have changed successfully.
@@ -110,12 +111,12 @@
                             <label class="custom-file-label" for="user_avatar">Choose file</label>
                         </div>
                     </div>
-                    <div class="avatar" style="max-width: 200px;">
+                    <div class="avatar" >
                         <img src="images/<?= $user['image'];?>" alt="user_avatar"
-                            style=" border-radius: 100%;  max-width: 100%;" width="200" height="200">
+                            style=" border-radius: 100%; max-width: 100%; object-fit:cover;" width="200" height="200">
                     </div>
 
-                    <button type="submit" class="btn btn-elegant mt-3">Save</button>
+                    <button type="submit" class="btn btn-elegant btn-sm mt-3">Save</button>
                 </form>
             </div>
 
@@ -157,7 +158,7 @@
                         <small class="form-text text-danger"><?= $confirmed_password_Err;?></small>
                     </div>
 
-                    <button type="submit" class="btn btn-elegant mt-3">Save</button>
+                    <button type="submit" class="btn btn-elegant btn-sm mt-3">Save</button>
                 </form>
             </div>
 
@@ -179,6 +180,10 @@
 
 </html>
 <?php
+    }
+    else{
+        header("Refresh: 0; url=/index.php");
+    }
 
     unset($_SESSION['username']);
     unset($_SESSION['email']);

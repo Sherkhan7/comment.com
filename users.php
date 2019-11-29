@@ -11,7 +11,7 @@
     $statement = $pdo -> prepare($sql);
     $statement -> execute();
     $users = $statement -> fetchAll( PDO::FETCH_ASSOC);
-
+    
     // echo "<pre>";
     // var_dump($users);
     // echo "</pre>";

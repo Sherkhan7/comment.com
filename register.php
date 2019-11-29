@@ -52,7 +52,7 @@
 
 <body>
     <div class="container">
-        <p>Salom</p>
+        
         <!-- Card -->
         <div class="card mx-auto my-3" style="max-width:500px;">
 
